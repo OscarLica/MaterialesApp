@@ -119,6 +119,10 @@
           }
         }
       }
-    }},
-  "defaultProject": "MaterialesApp"
+    }
+  },
+  "defaultProject": "MaterialesApp",
+  "cli": {
+    "analytics": "0df6aab3-4d6e-46cb-8086-dc341b7d14a3"
+  }
 }

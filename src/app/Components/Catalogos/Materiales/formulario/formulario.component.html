@@ -1,0 +1,24 @@
+<div class="container m-top">
+    <app-bread-crums [breadCrums]="breadCrums"></app-bread-crums>
+    <div class="card">
+        <div class="card-header">
+            Formulario tipos de materiales
+        </div>
+        <div class="card-body">
+            <form [formGroup]="tipoMaterialGroup" (ngSubmit)="Guardar()">
+                <div class="form-group">
+                    <input hidden formControlName="Id">
+                  <label>Nombre:*</label>
+                  <input type="text" class="form-control" formControlName="Nombre" placeholder="Nombre">
+                  <span *ngIf="controles.nombre && tipoMaterialGroup.controls['Nombre'].hasError('required')" class="text-danger">El campo Nombre es requerido</span>
+                </div>
+                <div class="form-group">
+                    <label>Código:*</label>
+                    <input type="text" class="form-control" formControlName="Codigo" placeholder="Código">
+                    <span *ngIf="controles.codigo && tipoMaterialGroup.controls['Codigo'].hasError('required')" class="text-danger">El campo  Código es requerido</span>
+                  </div>
+                <button type="submit" class="btn btn-primary" [disabled]="!tipoMaterialGroup.valid">Guardar</button>
+              </form>
+        </div>
+    </div>
+</div>

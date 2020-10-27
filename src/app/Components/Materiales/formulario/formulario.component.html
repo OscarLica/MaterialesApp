@@ -1,0 +1,73 @@
+<div class="container m-top">
+    <app-bread-crums [breadCrums]="breadCrums"></app-bread-crums>
+    <div class="card">
+        <div class="card-header">Formularui de materiales</div>
+        <div class="card-body">
+            <form [formGroup]="MaterialGroup" (ngSubmit)="Guardar()">
+                <input hidden formControlName="Id">
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label>Nombre:*</label>
+                        <input type="text" class="form-control" formControlName="Nombre" placeholder="Nombre">
+                        <span *ngIf="controles.nombre && MaterialGroup.controls['Nombre'].hasError('required')"
+                            class="text-danger">El campo Nombre es requerido</span>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label>Existencia:*</label>
+                        <input type="number" class="form-control" formControlName="Existencia" placeholder="0">
+                        <span *ngIf="controles.existencia && MaterialGroup.controls['Existencia'].hasError('required')"
+                            class="text-danger">El campo Existencia es requerido</span>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label>Precio:*</label>
+                        <input type="number" class="form-control" formControlName="Precio" placeholder="0.00">
+                        <span *ngIf="controles.precio && MaterialGroup.controls['Precio'].hasError('required')"
+                            class="text-danger">El campo Precio es requerido</span>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label>Categoria:*</label>
+                        <select class="form-control" formControlName="Categoria">
+                            <option value="">[Seleccione una opción]</option>
+                            <option *ngFor="let tipo of TipoMateriales" value={{tipo.Nombre}}>{{tipo.Nombre}}</option>
+                        </select>
+                        <span *ngIf="controles.categoria && MaterialGroup.controls['Categoria'].hasError('required')"
+                            class="text-danger">El campo Categoria es requerido</span>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label>Proveedor:*</label>
+                        <select class="form-control" formControlName="Proveedor">
+                            <option value="">[Seleccione una opción]</option>
+                            <option *ngFor="let proveedor of Proveedores" value={{proveedor.Id}}>{{proveedor.Nombre}}
+                            </option>
+                        </select>
+                        <span *ngIf="controles.proveedor && MaterialGroup.controls['Proveedor'].hasError('required')"
+                            class="text-danger">El campo Proveedor es requerido</span>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label>Unidad de medida:*</label>
+                        <input type="text" class="form-control" formControlName="Unidad" placeholder="mm">
+                        <span *ngIf="controles.unidad && MaterialGroup.controls['Unidad'].hasError('required')"
+                            class="text-danger">El campo Unidad es requerido</span>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-md-12">
+                        <label>Descripción:*</label>
+                        <textarea class="form-control" formControlName="Descripcion"
+                            placeholder="Descripcion"></textarea>
+                        <span
+                            *ngIf="controles.descripcion && MaterialGroup.controls['Descripcion'].hasError('required')"
+                            class="text-danger">El campo Descripción es requerido</span>
+                    </div>
+                </div>
+
+                <button type="submit" class="btn btn-primary" [disabled]="!MaterialGroup.valid">Guardar</button>
+            </form>
+        </div>
+
+    </div>
+</div>

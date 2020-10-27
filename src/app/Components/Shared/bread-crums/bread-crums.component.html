@@ -1,0 +1,13 @@
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <ng-container *ngFor="let breab of breadCrums; let i=index;">
+            <li *ngIf="breadCrums.length-1 !=i" class="breadcrumb-item">
+                <a routerLink="{{  breab.path }}">
+                 {{breab.texto}}</a>
+            </li>
+            <li *ngIf="breadCrums.length-1 ==i" class="breadcrumb-item active">
+                <i *ngIf="i==0" class="material-icons">home</i> {{breab.texto}}
+            </li>
+        </ng-container>
+    </ol>
+</nav>
