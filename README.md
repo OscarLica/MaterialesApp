@@ -2,7 +2,8 @@
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 10.1.6.
 
-# Ejecutar npm install y luego npm start.
+# Pasos de ejecución
+Ejecutar npm install y luego npm start.
 
 ## Development server
 
