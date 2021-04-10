@@ -10,7 +10,9 @@ import { MaterialService } from 'src/app/Services/Materiales/material.service';
 })
 export class ListadoComponent implements OnInit {
 
-  @Input() fCategoria: string;
+  filterProveedor:string = "";
+  filterCategoria: string = "";
+  filtro:string;
   @Input() fProveedor: string;
   MaterialesFilter: Materiales[];
   Materiales: Materiales[];
@@ -31,32 +33,10 @@ export class ListadoComponent implements OnInit {
    */
   ngOnInit(): void {
     this.Materiales = [];
-    this.MaterialesFilter = [];
-
-    this.ServiceMaterial.ListarMateriales().then((response) => {
-
-      this.Materiales = [];
-      this.MaterialesFilter = [];
-
-      this.MaterialesFilter = response;
-      this.Materiales = response
+    this.ServiceMaterial.ListarMateriales().subscribe((response) => {
+       this.Materiales = response
     });
+    
   }
 
-  /**
-   *  Ejecuta un filtrado simple en el arreglo
-   */
-
-  Filter() {
-
-    this.Materiales =this.MaterialesFilter;
-
-    if (this.fCategoria)
-      this.Materiales = this.Materiales.filter(x => x.Categoria.toLocaleLowerCase().includes(this.fCategoria.toLocaleLowerCase()))
-    if (this.fProveedor)
-      this.Materiales = this.Materiales.filter(x => x.Proveedor.toLocaleLowerCase().includes(this.fProveedor.toLocaleLowerCase()))
-
-
-    if (!this.fCategoria && !this.fProveedor) this.Materiales = this.MaterialesFilter;
-  }
 }

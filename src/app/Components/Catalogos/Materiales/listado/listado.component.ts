@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { TipoMaterial } from 'src/app/Models/TipoMaterial';
 import { TipoMaterialesService } from 'src/app/Services/Catalogos/tipo-materiales.service';
 
@@ -15,20 +15,23 @@ export class ListadoComponent implements OnInit {
     { texto:'Lista de tipos de materiales',  path:'/catalogos/listado-tipo-materiales' }   
   ];
 
-  /** listado de tipos de material */
-  TipoMateriales:TipoMaterial[] = [];
+  /**Listado de tipos de materiales */
+  TipoMateriales:TipoMaterial[];
 
-  /** Constructor base inicializa serviciode y dependencias */
-  constructor(private ServiceTipo:TipoMaterialesService) { }
+  /**
+   * Constructor base inicializa dependencias
+   * @param ServiceTipo Servicio de Tipo de materiales
+   */
+  constructor(private ServiceTipo:TipoMaterialesService) { 
+    this.TipoMateriales = [];
+  }
 
   /**
    *    inicializa los modelos y controles necesarios
    */
   ngOnInit(): void {
-    this.ServiceTipo.ListarTipo().then((response:TipoMaterial[]) => {
-
-      this.TipoMateriales = [];
-      this.TipoMateriales = response
+    this.ServiceTipo.ListarTipo().subscribe((response:TipoMaterial[]) => {
+      this.TipoMateriales = response;
     });
   }
 

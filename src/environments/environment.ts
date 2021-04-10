@@ -11,7 +11,7 @@ export const environment = {
     projectId: "materialesapp",
     storageBucket: "materialesapp.appspot.com",
     messagingSenderId: "921315845822",
-    appId: "1:921315845822:web:7551337729db7108b160ef"
+    appId: "1:921315845822:web:0bcf3ef6b003c6b0b160ef"
   }
 };
 

@@ -8,23 +8,18 @@
             Filtro
         </div>
         <div class="card-body">
-
             <div class="form-row">
                 <div class="form-group col-md-6">
                     <label>Categoria</label>
-                    <input class="form-control" placeholder="Nombre de categoria" [(ngModel)]="fCategoria"
-                        (keyup)="Filter()">
+                    <input class="form-control" placeholder="Nombre de categoria" [(ngModel)]="filterCategoria">
                 </div>
                 <div class="form-group col-md-6">
                     <label>Proveedor</label>
-                    <input class="form-control" placeholder="Nombre del proveedor" [(ngModel)]="fProveedor"
-                        (keyup)="Filter()">
+                    <input class="form-control" placeholder="Nombre del proveedor" [(ngModel)]="filterProveedor">
                 </div>
             </div>
-
         </div>
     </div>
-
     <br>
     <div class="card">
         <div class="card-header">
@@ -53,7 +48,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr *ngFor="let material of Materiales">
+                        <tr *ngFor="let material of Materiales | materialesPipeFilter: filterCategoria: filterProveedor">
                             <td>{{material.Nombre}}</td>
                             <td>{{material.Unidadedida}} {{material.Precio}}</td>
                             <td>{{material.Categoria}}</td>

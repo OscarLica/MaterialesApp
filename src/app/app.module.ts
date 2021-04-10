@@ -19,6 +19,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastrModule } from 'ngx-toastr';
 import { BreadCrumsComponent } from './Components/Shared/bread-crums/bread-crums.component';
 import { HomeComponent } from './Components/home/home.component';
+import { MaterialesPipeFilterPipe } from './materiales-pipe-filter.pipe';
 
 const route:Routes = [ 
 
@@ -41,7 +42,8 @@ const route:Routes = [
     ListadoTipoMateriales,
     FormularioTipoMateriales,
     BreadCrumsComponent,
-    HomeComponent
+    HomeComponent,
+    MaterialesPipeFilterPipe
   ],
   imports: [
     BrowserModule,

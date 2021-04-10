@@ -4,6 +4,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { TipoMaterial } from 'src/app/Models/TipoMaterial';
 import { TipoMaterialesService } from 'src/app/Services/Catalogos/tipo-materiales.service';
 import { ToastService } from 'src/app/Services/Toast/toast.service';
+import { first } from 'rxjs/operators';
+import { Observable, Subject } from 'rxjs';
 
 @Component({
   selector: 'app-formulario',
@@ -31,7 +33,6 @@ export class FormularioComponent implements OnInit {
    * @param _toastService 
    */
   constructor(private _activateRoute: ActivatedRoute, private _router: Router, private _fb: FormBuilder, private SericeTipo: TipoMaterialesService, private _toastService: ToastService) {
-
 
   }
 
@@ -71,14 +72,19 @@ export class FormularioComponent implements OnInit {
   Guardar() {
     
     if (this.tipoMaterialGroup.value.Id) {
-      this.SericeTipo.ActualizaTipo(<TipoMaterial>this.tipoMaterialGroup.value);
-      this._toastService.updateMessageDataSuccess();
+      this.SericeTipo.ActualizaTipo(<TipoMaterial>this.tipoMaterialGroup.value).then(() => {
+        this._toastService.updateMessageDataSuccess();
+        this._router.navigate(['/catalogos/listado-tipo-materiales']);
+      });
+    
     }
     else {
-      this.SericeTipo.CrearTipo(<TipoMaterial>this.tipoMaterialGroup.value);
-      this._toastService.createMessageDataSuccess();
+      this.SericeTipo.CrearTipo(<TipoMaterial>this.tipoMaterialGroup.value).then
+      (() => {
+        this._toastService.createMessageDataSuccess();
+        this._router.navigate(['/catalogos/listado-tipo-materiales']);
+      });
     }
-    this._router.navigate(['/catalogos/listado-tipo-materiales']);
   }
 
   /**
@@ -87,8 +93,6 @@ export class FormularioComponent implements OnInit {
    */
   ObtenerTipo(key: string) {
     this.SericeTipo.ObtieneTipo(key)
-      .then((resp) => { this.tipoMaterialGroup.reset({ ...resp[0] }); })
-      .catch(() => { });
+      .subscribe((resp) => { this.tipoMaterialGroup.reset({ ...resp }); });
   }
-
 }

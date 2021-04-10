@@ -55,8 +55,9 @@ export class FormularioComponent implements OnInit {
   ngOnInit(): void {
     this.InitiValidation();
 
-    this.ServiceTipo.ListarTipo().then((response) => this.TipoMateriales = response);
+    this.ServiceTipo.ListarTipo().subscribe((response) => this.TipoMateriales = response);
     const id = this._activateRoute.snapshot.paramMap.get('id');
+
     if (id && id !== "nuevo")
       this.ObtenerTipo(id);
   }
@@ -93,14 +94,19 @@ export class FormularioComponent implements OnInit {
   /** Crea un nuevo material o actualiza uno ya existente */
   Guardar() {
     if (this.MaterialGroup.value.Id) {
-      this.ServiceMaterial.ActualizaMaterial(<Materiales>this.MaterialGroup.value);
-      this._toastService.updateMessageDataSuccess();
+      this.ServiceMaterial.ActualizaMaterial(<Materiales>this.MaterialGroup.value).then(() => {
+        this._toastService.updateMessageDataSuccess();
+        this._router.navigate(['/materiales/listado']);
+      });
     }
     else {
-      this.ServiceMaterial.CrearMaterial(<Materiales>this.MaterialGroup.value);
-      this._toastService.createMessageDataSuccess();
+      this.ServiceMaterial.CrearMaterial(<Materiales>this.MaterialGroup.value).then(() => {
+        this._toastService.createMessageDataSuccess();
+        this._router.navigate(['/materiales/listado']);
+      });
+      
     }
-    this._router.navigate(['/materiales/listado']);
+ 
   }
 
   /**
@@ -110,7 +116,6 @@ export class FormularioComponent implements OnInit {
   ObtenerTipo(key: string) {
 
     this.ServiceMaterial.ObtieneMaterial(key)
-      .then((resp) => { this.MaterialGroup.reset({ ...resp[0] }); })
-      .catch(() => { });
+      .subscribe((resp) => { this.MaterialGroup.reset({ ...resp }); })
   }
 }
